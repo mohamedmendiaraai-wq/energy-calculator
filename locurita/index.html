@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Cost Calculator | Estimate Your Energy Bill</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f8f9fa; color: #212529; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        h1, h2 { color: #0d6efd; }
+        label { display: block; margin-top: 15px; font-weight: 600; }
+        input { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        button { background-color: #0d6efd; color: white; padding: 14px; border: none; border-radius: 6px; margin-top: 25px; width: 100%; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        button:hover { background-color: #0b5ed7; }
+        .result { margin-top: 25px; padding: 20px; background: #e7f1ff; border-left: 5px solid #0d6efd; border-radius: 4px; display: none; }
+        .ad-space { background: #f1f3f5; text-align: center; padding: 20px; margin: 25px 0; border: 2px dashed #dee2e6; color: #6c757d; font-size: 14px; border-radius: 6px; }
+        ul { line-height: 1.6; }
+        footer { margin-top: 30px; text-align: center; font-size: 14px; color: #6c757d; }
+        footer a { color: #0d6efd; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Appliance Electricity Cost Calculator</h1>
+    <p>Calculate how much power your home appliances consume and estimate your monthly energy expenses in US dollars.</p>
+
+    <!-- ADSENSE TOP PLACEHOLDER -->
+    <div class="ad-space">
+        <!-- Paste Google AdSense Code Here -->
+        [ AdSense Advertisement Space ]
+    </div>
+
+    <label for="power">Appliance Power (in Watts / W):</label>
+    <input type="number" id="power" placeholder="e.g., 1500 (Space Heater or Hair Dryer)">
+
+    <label for="hours">Hours used per day:</label>
+    <input type="number" id="hours" placeholder="e.g., 5">
+
+    <label for="rate">Electricity Rate (\$ per kWh):</label>
+    <input type="number" id="rate" step="0.01" value="0.16">
+    <small style="color: #6c757d;">Average US electricity rate is around \$0.16/kWh.</small>
+
+    <button onclick="calculateCost()">Calculate Electricity Cost</button>
+
+    <div class="result" id="resultBox">
+        <h2 style="margin-top:0;">Estimated Electricity Cost</h2>
+        <p id="resultText" style="font-size: 18px; line-height: 1.6;"></p>
+    </div>
+
+    <!-- ADSENSE MIDDLE PLACEHOLDER -->
+    <div class="ad-space">
+        <!-- Paste Google AdSense Code Here -->
+        [ AdSense Advertisement Space ]
+    </div>
+
+    <hr style="margin: 40px 0 20px 0; border: 0; border-top: 1px solid #dee2e6;">
+
+    <h2>How to Reduce Your Electricity Bill in the US</h2>
+    <p>Understanding appliance power usage is the first step toward saving on your monthly utility bills. High-wattage appliances running for extended periods are usually responsible for unexpected bill spikes.</p>
+    
+    <h3>Proven Energy-Saving Tips:</h3>
+    <ul>
+        <li><strong>Upgrade to ENERGY STAR Appliances:</strong> Certified appliances can consume up to 30% less energy than standard models.</li>
+        <li><strong>Eliminate Phantom Load:</strong> Unplug electronics when not in use. Standby power accounts for roughly 5–10% of residential energy use.</li>
+        <li><strong>Use Smart Thermostats:</strong> Heating and cooling represent over 50% of the average US home's energy consumption. Adjusting temperatures automatically saves significantly.</li>
+    </ul>
+
+    <footer>
+        <p><a href="privacy.html" target="_blank">Privacy Policy</a> | Electricity Cost Calculator © 2026</p>
+    </footer>
+</div>
+
+<script>
+    function calculateCost() {
+        const power = parseFloat(document.getElementById('power').value);
+        const hours = parseFloat(document.getElementById('hours').value);
+        const rate = parseFloat(document.getElementById('rate').value);
+
+        if (isNaN(power) || isNaN(hours) || isNaN(rate) || power <= 0 || hours <= 0 || rate <= 0) {
+            alert("Please enter valid positive numbers for all fields.");
+            return;
+        }
+
+        const kWhPerDay = (power * hours) / 1000;
+        const kWhPerMonth = kWhPerDay * 30;
+        const dailyCost = kWhPerDay * rate;
+        const monthlyCost = kWhPerMonth * rate;
+        const yearlyCost = monthlyCost * 12;
+
+        const resultBox = document.getElementById('resultBox');
+        const resultText = document.getElementById('resultText');
+
+        resultText.innerHTML = `
+            <strong>Daily Consumption:</strong> ${kWhPerDay.toFixed(2)} kWh ($${dailyCost.toFixed(2)})<br>
+            <strong>Monthly Cost:</strong> $${monthlyCost.toFixed(2)} (${kWhPerMonth.toFixed(2)} kWh)<br>
+            <strong>Estimated Yearly Cost:</strong> $${yearlyCost.toFixed(2)}
+        `;
+        resultBox.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
